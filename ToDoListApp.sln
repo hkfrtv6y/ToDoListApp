@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp.WPF", "ToDoListApp.WPF\ToDoListApp.WPF.csproj", "{5A6427F4-2390-49EB-912A-C2A2F57F9A64}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA771140-F566-4D8B-BB66-0ED24E57CDA1} = {AA771140-F566-4D8B-BB66-0ED24E57CDA1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp.DAL", "ToDoListApp.DAL\ToDoListApp.DAL.csproj", "{AA771140-F566-4D8B-BB66-0ED24E57CDA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{5A6427F4-2390-49EB-912A-C2A2F57F9A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A6427F4-2390-49EB-912A-C2A2F57F9A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A6427F4-2390-49EB-912A-C2A2F57F9A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA771140-F566-4D8B-BB66-0ED24E57CDA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA771140-F566-4D8B-BB66-0ED24E57CDA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA771140-F566-4D8B-BB66-0ED24E57CDA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA771140-F566-4D8B-BB66-0ED24E57CDA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
