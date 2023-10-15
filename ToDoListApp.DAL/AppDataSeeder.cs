@@ -32,19 +32,19 @@ public static class AppDataSeeder
                             new ToDoTask()
                             {
                                 Name = "groceries",
-                                CreateTime = DateTime.Now,
+                                Created = DateTime.Now,
                                 Description = "milk, bread, eggs"
                             },
                             new ToDoTask()
                             {
                                 Name = "study",
-                                CreateTime = DateTime.Now,
+                                Created = DateTime.Now,
                                 Description = "calculus & biology"
                             },
                             new ToDoTask()
                             {
                                 Name = "send some cvs",
-                                CreateTime = DateTime.Now
+                                Created = DateTime.Now
                             },
                         }
                     }
@@ -72,12 +72,12 @@ public static class AppDataSeeder
                             new ToDoTask()
                             {
                                 Name = "meet susan",
-                                CreateTime = DateTime.Now
+                                Created = DateTime.Now
                             },
                             new ToDoTask()
                             {
                                 Name = "clean flat",
-                                CreateTime = DateTime.Now,
+                                Created = DateTime.Now,
                                 Description = "remember about vacuuming"
                             }
                         }

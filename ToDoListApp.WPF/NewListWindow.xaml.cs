@@ -15,7 +15,7 @@ public partial class NewListWindow : Window
         InitializeComponent();
     }
 
-    private void Create_Click(object sender, RoutedEventArgs e)
+    private void CreateButton_Click(object sender, RoutedEventArgs e)
     {
         if (string.IsNullOrEmpty(txtName.Text))
         {

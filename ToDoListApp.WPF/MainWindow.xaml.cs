@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ToDoListApp.DAL;
@@ -16,7 +17,7 @@ public partial class MainWindow : Window
         using AppDbContext dbContext = new();
         InitializeComponent();
         AppDataSeeder.Seed(dbContext);
-        toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists);
+        toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists.Include(l => l.Tasks));
         userComboBox.ItemsSource = dbContext.Users.ToList();
         dgridLists.ItemsSource = toDoLists;
     }
@@ -34,7 +35,7 @@ public partial class MainWindow : Window
     {
         if (userComboBox.SelectedItem is null)
         {
-            MessageBox.Show("Error: no user selected.");
+            MessageBox.Show("Error: no user was selected.");
             return;
         }
         NewListWindow window = new();
@@ -51,10 +52,39 @@ public partial class MainWindow : Window
 
     private void ViewTasks_Click(object sender, RoutedEventArgs e)
     {
+        if (dgridLists.SelectedItem is null)
+        {
+            MessageBox.Show("Error: no list was selected.");
+            return;
+        }
 
+        int selectedListId = ((ToDoList)dgridLists.SelectedItem).Id;
+        ViewTasksWindow window = new(selectedListId);
+        window.ShowDialog();
     }
-    private void DeleteTasks_Click(object sender, RoutedEventArgs e)
+    private void DeleteList_Click(object sender, RoutedEventArgs e)
     {
+        if (dgridLists.SelectedItem is ToDoList selectedList)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to delete this list and all its tasks?", "Delete list", MessageBoxButton.YesNo);
+            using AppDbContext dbContext = new();
+            if (result == MessageBoxResult.Yes)
+            {
 
+                // Find the list and its associated tasks in the database
+                ToDoList? listToDelete = dbContext.Lists.FirstOrDefault(l => l.Id == selectedList.Id);
+                if (listToDelete is not null)
+                {
+                    // Remove the list and its tasks
+                    dbContext.Tasks.RemoveRange(listToDelete.Tasks);
+                    dbContext.Lists.Remove(listToDelete);
+                    dbContext.SaveChanges();
+                }
+            }
+            User user = userComboBox.SelectedItem as User;
+            toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists.Where(l => l.UserId == user.Id).ToList());
+            dgridLists.ItemsSource = toDoLists;
+        }
     }
+
 }

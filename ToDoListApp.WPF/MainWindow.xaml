@@ -5,15 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoListApp.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ToDo List App" Height="450" Width="800">
     <Grid>
-        <!-- Add a Grid to organize the new elements and the DataGrid -->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
 
             <StackPanel Orientation="Horizontal">
                 <Label Content="Select user:" VerticalAlignment="Center" Margin="10"/>
@@ -21,7 +19,7 @@
                 <ComboBox x:Name="userComboBox" DisplayMemberPath="FullName" SelectionChanged="UserComboBox_SelectionChanged" VerticalAlignment="Center" Width="150" Margin="10">
                 </ComboBox>
 
-                <Button Content="New list" VerticalAlignment="Center" Margin="10" Click="NewListButton_Click"/>
+                <Button Content="New list" VerticalAlignment="Center" Height="20" Width="100" Margin="10" Click="NewListButton_Click"/>
             </StackPanel>
 
             <DataGrid Grid.Row="1" x:Name="dgridLists" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
@@ -33,7 +31,7 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="View tasks" Click="ViewTasks_Click"></MenuItem>
-                        <MenuItem Header="Delete list" Click="DeleteTask_Click"></MenuItem>
+                        <MenuItem Header="Delete list" Click="DeleteList_Click"></MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

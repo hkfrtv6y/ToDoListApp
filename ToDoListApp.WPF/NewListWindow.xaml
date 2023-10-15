@@ -1,14 +1,14 @@
 ﻿<Window x:Class="ToDoListApp.WPF.NewListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="New List" Height="150" Width="400">
+        Title="New list" Height="185" Width="400">
     <Grid Margin="15">
         <StackPanel>
         <TextBlock Text="Adding new list for user: "/>
             <TextBox x:Name="txtUser" IsEnabled="False"></TextBox>
         <TextBlock Text="Enter new list name:"/>
             <TextBox x:Name="txtName"></TextBox>
-            <Button Margin="0 10 0 0" Content="Create" Click="Create_Click" />
+            <Button Margin="0 10 0 0" Content="Create" Click="CreateButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

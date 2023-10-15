@@ -12,7 +12,7 @@ using ToDoListApp.DAL;
 namespace ToDoListApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231015113200_Init")]
+    [Migration("20231015154205_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -93,7 +93,7 @@ namespace ToDoListApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
