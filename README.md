@@ -7,8 +7,8 @@ Allows the user to create and manipulate todo lists and tasks.
 
 # How to run
 
- 1. Edit ToDoListApp.DAL.AppDbContext.cs class and enter the correct connection string into `OnConfiguring` method. 
- 2. Apply migration by entering command `update-database` in Package Manager Console
+ 1. Edit `ToDoListApp.DAL.AppDbContext.cs` class and enter the correct connection string into `OnConfiguring` method. 
+ 2. Apply migration by entering command `update-database` in Package Manager Console (please note that `ToDoListApp.WPF` must be selected as the startup project, and `ToDoListApp.WPF' as a default project in Package Manager Console!)
  3. Run the app - it will check if the database is empty, if so, the data will be seeded automatically.
 
 ## Notes
