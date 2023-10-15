@@ -10,6 +10,13 @@ namespace ToDoListApp.WPF;
 public partial class NewListWindow : Window
 {
     private readonly int _userId; // passed from constructor
+    /// <summary>
+    /// Constructor for <c>NewListWindow</c> class
+    /// 
+    /// </summary>
+    /// <param name="id">
+    /// Passes user Id from <c>MainWindow</c> class
+    /// </param>
     public NewListWindow(int id)
     {
         _userId = id;
