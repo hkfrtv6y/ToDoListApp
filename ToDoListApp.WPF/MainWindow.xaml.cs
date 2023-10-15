@@ -5,25 +5,28 @@ using ToDoListApp.DAL;
 using ToDoListApp.DAL.Entities;
 
 namespace ToDoListApp.WPF;
+
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// Interaction logic for the main window of the application.
 /// </summary>
 public partial class MainWindow : Window
 {
     /// <summary>
-    /// Constructor of <c>MainWindow</c> class
+    /// Constructor of the <see cref="MainWindow"/> class.
     /// </summary>
     public MainWindow()
     {
-        using AppDbContext dbContext = new(); // connect to database with 'using' directive to dispose of the object after
-        AppDataSeeder.Seed(dbContext); // seed the database if it's empty
+        using AppDbContext dbContext = new();
+        AppDataSeeder.Seed(dbContext);
         InitializeComponent();
-        userComboBox.ItemsSource = dbContext.Users.ToList(); // populate users combobox
-        userComboBox.SelectedIndex = 0; // by default a user is selected - users are hardcoded into the database
+        userComboBox.ItemsSource = dbContext.Users.ToList();
+        userComboBox.SelectedIndex = 0;
         dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == ((User)userComboBox.SelectedItem).Id).Include(l => l.Tasks).ToList();
     }
 
-    // reload datagrid after user change
+    /// <summary>
+    /// Reloads the data grid after a user change.
+    /// </summary>
     private void UserComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         if (userComboBox.SelectedItem is User selectedUser)
@@ -33,6 +36,9 @@ public partial class MainWindow : Window
         }
     }
 
+    /// <summary>
+    /// Handles the click event of the "New List" button.
+    /// </summary>
     private void NewListButton_Click(object sender, RoutedEventArgs e)
     {
         if (userComboBox.SelectedItem is null)
@@ -45,11 +51,14 @@ public partial class MainWindow : Window
         window.txtUser.Text = user.FullName;
         window.ShowDialog();
 
-        // reload data grid
+        // Reload data grid
         using AppDbContext dbContext = new();
         dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == user.Id).ToList();
     }
 
+    /// <summary>
+    /// Handles the click event of the "View Tasks" button.
+    /// </summary>
     private void ViewTasks_Click(object sender, RoutedEventArgs e)
     {
         if (dgridLists.SelectedItem is null)
@@ -62,6 +71,10 @@ public partial class MainWindow : Window
         ViewTasksWindow window = new(selectedListId);
         window.ShowDialog();
     }
+
+    /// <summary>
+    /// Handles the click event of the "Delete List" button.
+    /// </summary>
     private void DeleteList_Click(object sender, RoutedEventArgs e)
     {
         if (dgridLists.SelectedItem is ToDoList selectedList)
@@ -70,12 +83,9 @@ public partial class MainWindow : Window
             using AppDbContext dbContext = new();
             if (result == MessageBoxResult.Yes)
             {
-
-                // Find the list and its associated tasks in the database
                 ToDoList? listToDelete = dbContext.Lists.FirstOrDefault(l => l.Id == selectedList.Id);
                 if (listToDelete is not null)
                 {
-                    // Remove the list and its tasks
                     dbContext.Tasks.RemoveRange(listToDelete.Tasks);
                     dbContext.Lists.Remove(listToDelete);
                     dbContext.SaveChanges();
@@ -84,11 +94,10 @@ public partial class MainWindow : Window
             User? user = userComboBox.SelectedItem as User;
             if (user is null)
             {
-                MessageBox.Show("Error: please select user first.");
+                MessageBox.Show("Error: please select a user first.");
                 return;
             }
             dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == user.Id).ToList();
         }
     }
-
 }

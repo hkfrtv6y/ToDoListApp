@@ -12,7 +12,7 @@ using ToDoListApp.DAL;
 namespace ToDoListApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231015154205_Init")]
+    [Migration("20231015165932_Init")]
     partial class Init
     {
         /// <inheritdoc />
