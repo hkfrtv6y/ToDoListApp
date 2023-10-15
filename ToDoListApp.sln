@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp.WPF", "ToDoListApp.WPF\ToDoListApp.WPF.csproj", "{5A6427F4-2390-49EB-912A-C2A2F57F9A64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoListApp.WPF", "ToDoListApp.WPF\ToDoListApp.WPF.csproj", "{5A6427F4-2390-49EB-912A-C2A2F57F9A64}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AA771140-F566-4D8B-BB66-0ED24E57CDA1} = {AA771140-F566-4D8B-BB66-0ED24E57CDA1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoListApp.DAL", "ToDoListApp.DAL\ToDoListApp.DAL.csproj", "{AA771140-F566-4D8B-BB66-0ED24E57CDA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoListApp.DAL", "ToDoListApp.DAL\ToDoListApp.DAL.csproj", "{AA771140-F566-4D8B-BB66-0ED24E57CDA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

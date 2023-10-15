@@ -6,4 +6,5 @@ public class User
     public string LastName { get; set; } = default!;
     public List<ToDoList> Lists { get; set; } = new List<ToDoList>();
     public Address? Address { get; set; }
+    public string FullName => $"{Id}. {FirstName} {LastName}";
 }
