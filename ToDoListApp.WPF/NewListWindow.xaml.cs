@@ -9,25 +9,31 @@ namespace ToDoListApp.WPF;
 /// </summary>
 public partial class NewListWindow : Window
 {
-    internal int UserId;
-    public NewListWindow()
+    private readonly int _userId; // passed from constructor
+    public NewListWindow(int id)
     {
+        _userId = id;
         InitializeComponent();
     }
 
     private void CreateButton_Click(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrEmpty(txtName.Text))
+        if (string.IsNullOrEmpty(txtName.Text)) // check if name is not empty
         {
             MessageBox.Show("Error: new list name must not be empty.");
             return;
         }
-        using AppDbContext dbContext = new();
+        if (txtName.Text.Length > 100) // check if name is not too long
+        {
+            MessageBox.Show("Error: new list name must be maximum 100 characters long.");
+            return;
+        }
+        using AppDbContext dbContext = new(); // 'using' directive in order to dispose of the connection after
         dbContext.Lists.Add(new ToDoList()
         {
             Created = DateTime.Now,
             Name = txtName.Text,
-            UserId = UserId
+            UserId = _userId
         });
         dbContext.SaveChanges();
         Close();

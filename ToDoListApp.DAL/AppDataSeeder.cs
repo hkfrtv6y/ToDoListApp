@@ -57,7 +57,7 @@ public static class AppDataSeeder
                 Address = new Address()
                 {
                     City = "Chicago",
-                    Street = "Windy St. 22/99",
+                    Street = "Windy St. 50/1",
                     PostalCode = "23400",
                     Country = "USA"
                 },

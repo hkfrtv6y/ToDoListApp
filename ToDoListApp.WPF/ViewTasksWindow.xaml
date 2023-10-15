@@ -14,9 +14,9 @@
         <StackPanel Margin ="5" Grid.Column="0">
             <TextBlock></TextBlock>
         <TextBlock Text="Name:"></TextBlock>
-            <TextBox></TextBox>
+            <TextBox x:Name="txtName"></TextBox>
             <TextBlock Text="Description (optional):"></TextBlock>
-            <TextBox Height="75"></TextBox>
+            <TextBox x:Name ="txtDescription" Height="75"></TextBox>
             <TextBlock></TextBlock>
             <Button Content="Add task" Click="AddTaskButton_Click"></Button>
 
@@ -25,10 +25,11 @@
         <DataGrid x:Name="dgridTasks" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Id}" Header="Id" Width="65"></DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Name}" Header="Name" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Name}" Header="Name" Width="255"></DataGridTextColumn>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Description}" Header="Description" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn IsReadOnly="True" Binding="{Binding Created, StringFormat=\{0:dd-MM-yyyy\}}" Header="Date" Width="125"></DataGridTextColumn>
             </DataGrid.Columns>
+         
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete task" Click="DeleteTask_Click"></MenuItem>

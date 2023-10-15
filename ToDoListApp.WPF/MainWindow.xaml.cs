@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ToDoListApp.DAL;
@@ -11,23 +10,26 @@ namespace ToDoListApp.WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private ObservableCollection<ToDoList> toDoLists;
+    /// <summary>
+    /// Constructor of <c>MainWindow</c> class
+    /// </summary>
     public MainWindow()
     {
-        using AppDbContext dbContext = new();
+        using AppDbContext dbContext = new(); // connect to database with 'using' directive to dispose of the object after
+        AppDataSeeder.Seed(dbContext); // seed the database if it's empty
         InitializeComponent();
-        AppDataSeeder.Seed(dbContext);
-        toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists.Include(l => l.Tasks));
-        userComboBox.ItemsSource = dbContext.Users.ToList();
-        dgridLists.ItemsSource = toDoLists;
+        userComboBox.ItemsSource = dbContext.Users.ToList(); // populate users combobox
+        userComboBox.SelectedIndex = 0; // by default a user is selected - users are hardcoded into the database
+        dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == ((User)userComboBox.SelectedItem).Id).Include(l => l.Tasks).ToList();
     }
 
+    // reload datagrid after user change
     private void UserComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         if (userComboBox.SelectedItem is User selectedUser)
         {
-            // Filter and display ToDoLists for the selected user
-            dgridLists.ItemsSource = selectedUser.Lists.ToList();
+            using AppDbContext dbContext = new();
+            dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == selectedUser.Id).Include(l => l.Tasks).ToList();
         }
     }
 
@@ -38,16 +40,14 @@ public partial class MainWindow : Window
             MessageBox.Show("Error: no user was selected.");
             return;
         }
-        NewListWindow window = new();
-        User user = userComboBox.SelectedItem as User;
+        User? user = (User)userComboBox.SelectedItem;
+        NewListWindow window = new(user.Id);
         window.txtUser.Text = user.FullName;
-        window.UserId = user.Id;
         window.ShowDialog();
 
         // reload data grid
         using AppDbContext dbContext = new();
-        toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists.Where(l => l.UserId == user.Id).ToList());
-        dgridLists.ItemsSource = toDoLists;
+        dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == user.Id).ToList();
     }
 
     private void ViewTasks_Click(object sender, RoutedEventArgs e)
@@ -81,9 +81,13 @@ public partial class MainWindow : Window
                     dbContext.SaveChanges();
                 }
             }
-            User user = userComboBox.SelectedItem as User;
-            toDoLists = new ObservableCollection<ToDoList>(dbContext.Lists.Where(l => l.UserId == user.Id).ToList());
-            dgridLists.ItemsSource = toDoLists;
+            User? user = userComboBox.SelectedItem as User;
+            if (user is null)
+            {
+                MessageBox.Show("Error: please select user first.");
+                return;
+            }
+            dgridLists.ItemsSource = dbContext.Lists.Where(l => l.UserId == user.Id).ToList();
         }
     }
 
