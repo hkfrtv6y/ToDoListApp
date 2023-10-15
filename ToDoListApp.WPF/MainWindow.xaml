@@ -21,7 +21,7 @@
                 <ComboBox x:Name="userComboBox" DisplayMemberPath="FullName" SelectionChanged="UserComboBox_SelectionChanged" VerticalAlignment="Center" Width="150" Margin="10">
                 </ComboBox>
 
-                <Button Content="New list" VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="Auto" Margin="10"/>
+                <Button Content="New list" VerticalAlignment="Center" Margin="10" Click="NewListButton_Click"/>
             </StackPanel>
 
             <DataGrid Grid.Row="1" x:Name="dgridLists" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
@@ -32,8 +32,8 @@
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="View tasks"></MenuItem>
-                        <MenuItem Header="Delete list"></MenuItem>
+                        <MenuItem Header="View tasks" Click="ViewTasks_Click"></MenuItem>
+                        <MenuItem Header="Delete list" Click="DeleteTask_Click"></MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

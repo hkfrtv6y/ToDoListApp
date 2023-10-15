@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using ToDoListApp.DAL;
+using ToDoListApp.DAL.Entities;
 
 namespace ToDoListApp.WPF;
 /// <summary>
@@ -18,8 +9,27 @@ namespace ToDoListApp.WPF;
 /// </summary>
 public partial class NewListWindow : Window
 {
+    internal int UserId;
     public NewListWindow()
     {
         InitializeComponent();
+    }
+
+    private void Create_Click(object sender, RoutedEventArgs e)
+    {
+        if (string.IsNullOrEmpty(txtName.Text))
+        {
+            MessageBox.Show("Error: new list name must not be empty.");
+            return;
+        }
+        using AppDbContext dbContext = new();
+        dbContext.Lists.Add(new ToDoList()
+        {
+            Created = DateTime.Now,
+            Name = txtName.Text,
+            UserId = UserId
+        });
+        dbContext.SaveChanges();
+        Close();
     }
 }
