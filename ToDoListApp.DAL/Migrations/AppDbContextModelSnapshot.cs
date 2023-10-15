@@ -142,24 +142,20 @@ namespace ToDoListApp.DAL.Migrations
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoList", b =>
                 {
-                    b.HasOne("ToDoListApp.DAL.Entities.User", "User")
+                    b.HasOne("ToDoListApp.DAL.Entities.User", null)
                         .WithMany("Lists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoTask", b =>
                 {
-                    b.HasOne("ToDoListApp.DAL.Entities.ToDoList", "List")
+                    b.HasOne("ToDoListApp.DAL.Entities.ToDoList", null)
                         .WithMany("Tasks")
                         .HasForeignKey("ToDoListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("List");
                 });
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoList", b =>

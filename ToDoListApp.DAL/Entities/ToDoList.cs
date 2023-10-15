@@ -3,8 +3,7 @@ public class ToDoList
 {
     public int Id { get; set; }
     public int UserId { get; set; }
-    public User User { get; set; } = default!;
     public string Name { get; set; } = default!;
-    public List<ToDoTask> Tasks { get; set; } = new List<ToDoTask>();
+    public List<ToDoTask>? Tasks { get; set; }
     public DateTime Created { get; set; }
 }

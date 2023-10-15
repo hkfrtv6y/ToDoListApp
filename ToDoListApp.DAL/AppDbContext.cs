@@ -31,21 +31,12 @@ public class AppDbContext : DbContext
 
         // Configure the one-to-many relationship between User and ToDoList
         modelBuilder.Entity<User>()
-            .HasMany(u => u.Lists)
-            .WithOne(l => l.User)
-            .HasForeignKey(l => l.UserId);
+            .HasMany(u => u.Lists);
 
         // Configure the one-to-many relationship between ToDoList and ToDoTask
         modelBuilder.Entity<ToDoList>()
-            .HasMany(l => l.Tasks)
-            .WithOne(t => t.List)
-            .HasForeignKey(t => t.ToDoListId);
+            .HasMany(l => l.Tasks);
 
-        // Configure the many-to-one relationship between ToDoTask and ToDoList
-        modelBuilder.Entity<ToDoTask>()
-            .HasOne(t => t.List)
-            .WithMany(l => l.Tasks)
-            .HasForeignKey(t => t.ToDoListId);
 
         // Don't forget to call the base OnModelCreating method to apply any other configurations
         base.OnModelCreating(modelBuilder);

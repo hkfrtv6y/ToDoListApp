@@ -12,7 +12,7 @@ using ToDoListApp.DAL;
 namespace ToDoListApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231014180008_Init")]
+    [Migration("20231015113200_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -145,24 +145,20 @@ namespace ToDoListApp.DAL.Migrations
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoList", b =>
                 {
-                    b.HasOne("ToDoListApp.DAL.Entities.User", "User")
+                    b.HasOne("ToDoListApp.DAL.Entities.User", null)
                         .WithMany("Lists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoTask", b =>
                 {
-                    b.HasOne("ToDoListApp.DAL.Entities.ToDoList", "List")
+                    b.HasOne("ToDoListApp.DAL.Entities.ToDoList", null)
                         .WithMany("Tasks")
                         .HasForeignKey("ToDoListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("List");
                 });
 
             modelBuilder.Entity("ToDoListApp.DAL.Entities.ToDoList", b =>

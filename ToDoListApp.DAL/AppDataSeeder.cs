@@ -6,85 +6,87 @@ public static class AppDataSeeder
 {
     public static void Seed(AppDbContext dbContext)
     {
-        if (!dbContext.Users.Any())
+        if (!(dbContext.Users.Any() || dbContext.Lists.Any()))
         {
-            dbContext.Users.Add(new User
+            List<User> users = new()
+        {
+            new User()
             {
                 FirstName = "John",
                 LastName = "Smith",
-            });
-            dbContext.SaveChanges();
-        }
-    }
-
-    private static void SeedUsers(AppDbContext dbContext)
-    {
-
-    }
-
-    private static void SeedTasks(AppDbContext dbContext)
-    {
-        List<ToDoList> lists = new()
-        {
-            new ToDoList()
-            {
-                Id = 1,
-                UserId = 1,
-                Name = "sample",
-                Created = DateTime.Now,
-                Tasks = new List<ToDoTask>
+                Address = new Address()
                 {
-                    new ToDoTask()
-                {
-                    Id = 1,
-                    ToDoListId = 1,
-                    CreateTime = DateTime.Now,
-                    Name = "task 1"
+                    City = "New York",
+                    Street = "Wall St. 22/99",
+                    PostalCode = "11200",
+                    Country = "USA"
                 },
-                    new ToDoTask()
+                Lists = new List<ToDoList>()
+                {
+                    new ToDoList()
                     {
-                        Id = 2,
-                        ToDoListId = 1,
-                        CreateTime = DateTime.Now,
-                        Name = "task 2"
+                        Name = "friday",
+                        Created = DateTime.Now,
+                        Tasks = new List<ToDoTask>()
+                        {
+                            new ToDoTask()
+                            {
+                                Name = "groceries",
+                                CreateTime = DateTime.Now,
+                                Description = "milk, bread, eggs"
+                            },
+                            new ToDoTask()
+                            {
+                                Name = "study",
+                                CreateTime = DateTime.Now,
+                                Description = "calculus & biology"
+                            },
+                            new ToDoTask()
+                            {
+                                Name = "send some cvs",
+                                CreateTime = DateTime.Now
+                            },
+                        }
                     }
                 }
             },
-
-            new ToDoList()
+            new User()
             {
-                Id = 2,
-                UserId = 2,
-                Name = "test",
-                Created = DateTime.Now,
-                Tasks = new List<ToDoTask>
+                FirstName = "Jane",
+                LastName = "Doe",
+                Address = new Address()
                 {
-                    new ToDoTask()
-                {
-                    Id = 1,
-                    ToDoListId = 2,
-                    CreateTime = DateTime.Now,
-                    Name = "test task 1"
+                    City = "Chicago",
+                    Street = "Windy St. 22/99",
+                    PostalCode = "23400",
+                    Country = "USA"
                 },
-                    new ToDoTask()
+                Lists = new List<ToDoList>()
+                {
+                    new ToDoList()
                     {
-                        Id = 2,
-                        ToDoListId = 2,
-                        CreateTime = DateTime.Now,
-                        Name = "test task 2"
-                    },
-                    new ToDoTask()
-                    {
-                        Id = 3,
-                        ToDoListId = 2,
-                        CreateTime = DateTime.Now,
-                        Name = "test task 3"
+                        Name = "last october weekend",
+                        Created = DateTime.Now,
+                        Tasks = new List<ToDoTask>()
+                        {
+                            new ToDoTask()
+                            {
+                                Name = "meet susan",
+                                CreateTime = DateTime.Now
+                            },
+                            new ToDoTask()
+                            {
+                                Name = "clean flat",
+                                CreateTime = DateTime.Now,
+                                Description = "remember about vacuuming"
+                            }
+                        }
                     }
                 }
             }
-
         };
-        dbContext.Lists.AddRange(lists);
+            dbContext.Users.AddRange(users);
+            dbContext.SaveChanges();
+        }
     }
-
 }
